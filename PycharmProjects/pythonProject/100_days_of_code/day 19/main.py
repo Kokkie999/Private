@@ -10,13 +10,13 @@ colors = ["red", "orange", "yellow", "green", "blue", "purple"]
 y_positions = [-75, -45, -15, 15, 45, 75]
 all_turtles = []
 
-
 for turtle_index in range(0, 6):
     new_turtle = Turtle(shape="turtle")
     new_turtle.color(colors[turtle_index])
     new_turtle.penup()
     new_turtle.goto(x=-230, y=y_positions[turtle_index])
     all_turtles.append(new_turtle)
+
 
 
 if user_bet:
