@@ -1,18 +1,16 @@
-import os
 import requests
-from datetime import datetime, timedelta
-from twilio.rest import Client
+# from twilio.rest import Client
 
-STOCK_NAME = "TSLA"
-COMPANY_NAME = "Tesla Inc"
+STOCK_NAME = "FLOW.AMS"
+COMPANY_NAME = "Flow Traders"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
 STOCK_API_KEY =
 NEWS_API_KEY =
-TWILIO_SID =
-TWILIO_AUTH_TOKEN = 
+# TWILIO_SID =
+# TWILIO_AUTH_TOKEN =
 
 stock_params = {
     "function": "TIME_SERIES_DAILY",
@@ -51,12 +49,18 @@ if abs(dif_percent) >= 0.5:
 
     formated_articles = [f"{STOCK_NAME}: {up_down}{dif_percent}% \nHeadline: {article['title']}. \nBrief: {article['description']}" for article in three_articles]
 
-    client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+    # client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+    #
+    # for article in formated_articles:
+    #     message = client.messages.create(
+    #         body=article,
+    #         from_="+12342353373",
+    #         to="+31615633707"
+    #     )
 
-    for article in formated_articles:
-        message = client.messages.create(
-            body=article,
-            from_="+12342353373",
-            to="+31615633707"
-        )
+    print(yesterday_closing_price)
+    print(day_before_yesterday_closing_price)
+    print(difference)
+    print(dif_percent)
+    print(formated_articles)
 
