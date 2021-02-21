@@ -1,17 +1,24 @@
+import pandas as pd
+import json
 import requests
 from datetime import datetime
 import os
 
-# GENDER = YOUR GENDER
-# WEIGHT_KG = YOUR WEIGHT
-# HEIGHT_CM = YOUR HEIGHT
-# AGE = YOUR AGE
+with open("C:/Users/iwand/OneDrive/api_key.json") as data_file:
+    api_data = json.load(data_file)
 
-APP_ID = os.environ["YOUR_APP_ID"]
-API_KEY = os.environ["YOUR_API_KEY"]
 
-exercise_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
-# sheet_endpoint = os.environ["YOUR_SHEET_ENDPOINT"]
+APP_ID = "2d66d9b0"
+API_KEY = "809807221c8ccffbe9cf5d2fcc9762f0"
+TOKEN = "rgertyjhgwwyfunyjenbuhgbuyrebgrtybh"
+GENDER = "Man"
+WEIGHT_KG = 81
+HEIGHT_CM = 24
+AGE = 51
+
+
+exercise_endpoint = api_data["Nutritionix"]["endpoint"]
+sheet_endpoint = api_data["Sheety"]["endpoint"]
 
 exercise_text = input("Tell me which exercises you did: ")
 
@@ -28,12 +35,17 @@ parameters = {
     "age": AGE
 }
 
+bearer_headers = {
+    "Authorization": f"Bearer {TOKEN}",
+    "Content-Type": "application/json",
+}
+
 response = requests.post(exercise_endpoint, json=parameters, headers=headers)
 result = response.json()
-print(result)
 
 today_date = datetime.now().strftime("%d/%m/%Y")
 now_time = datetime.now().strftime("%X")
+
 
 for exercise in result["exercises"]:
     sheet_inputs = {
@@ -46,28 +58,7 @@ for exercise in result["exercises"]:
         }
     }
 
-    #No Auth
-    sheet_response = requests.post(sheet_endpoint, json=sheet_inputs)
+    sheet_response = requests.post(f"{sheet_endpoint}/workoutTracking/workout", json=sheet_inputs, headers=bearer_headers)
 
-
-    #Basic Auth
-    sheet_response = requests.post(
-        sheet_endpoint, 
-        json=sheet_inputs, 
-        auth=(
-            os.environ["USERNAME"], 
-            os.environ["PASSWORD"],
-        )
-    )
-
-    #Bearer Token
-    bearer_headers = {
-    "Authorization": f"Bearer {os.environ['TOKEN']}"
-    }
-    sheet_response = requests.post(
-        sheet_endpoint, 
-        json=sheet_inputs, 
-        headers=bearer_headers
-    )
-
-    # print(sheet_response.text)
+    print(sheet_response)
+    print(sheet_response.text)
