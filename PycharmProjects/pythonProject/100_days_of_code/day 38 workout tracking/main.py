@@ -1,16 +1,14 @@
-import pandas as pd
 import json
 import requests
 from datetime import datetime
-import os
 
 with open("C:/Users/iwand/OneDrive/api_key.json") as data_file:
     api_data = json.load(data_file)
 
 
-APP_ID = "2d66d9b0"
-API_KEY = "809807221c8ccffbe9cf5d2fcc9762f0"
-TOKEN = "rgertyjhgwwyfunyjenbuhgbuyrebgrtybh"
+APP_ID = api_data["Nutritionix"]["api_id"]
+API_KEY = api_data["Nutritionix"]["api_key"]
+TOKEN = api_data["Sheety"]["token"]
 GENDER = "Man"
 WEIGHT_KG = 81
 HEIGHT_CM = 24
