@@ -90,6 +90,7 @@ api_key_entry.grid(sticky=W, row=4, column=1, columnspan=2)
 token_entry = Entry(width=60, justify=LEFT)
 token_entry.grid(sticky=W, row=5, column=1, columnspan=2)
 
+
 # Buttons
 search_button = Button(text="Zoeken", width=18, justify=RIGHT, command=find)
 search_button.grid(sticky=W, row=1, column=2)
