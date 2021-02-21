@@ -20,7 +20,7 @@ def save():
         }
     }
 
-    if len(api_name) == 0 or len(endpoint) == 0:
+    if len(api_name) == 0:
         messagebox.showwarning(title="Oops", message="Please don't leave any fields empty!")
     else:
         try:
