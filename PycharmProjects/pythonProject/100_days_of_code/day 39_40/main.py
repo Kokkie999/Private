@@ -1,13 +1,15 @@
-#This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 from datetime import datetime, timedelta
 from data_manager import DataManager
 from flight_search import FlightSearch
-
-data_manager = DataManager()
-sheet_data = data_manager.get_destination_data()
-flight_search = FlightSearch()
+from notification_manager import NotificationManager
 
 ORIGIN_CITY_IATA = "AMS"
+
+data_manager = DataManager()
+flight_search = FlightSearch()
+notification_manager = NotificationManager()
+
+sheet_data = data_manager.get_destination_data()
 
 for row in sheet_data:
     if row["iataCode"] == "":
@@ -27,3 +29,9 @@ for destination in sheet_data:
         to_time=six_month_from_today
     )
 
+    if flight != None and flight.price < destination["lowestPrice"]:
+        notification_manager.send_sms(
+            message=f"Low price alert! Only £{flight.price} to fly from {flight.origin_city}-{flight.origin_airport}"
+                    f" to {flight.destination_city}-{flight.destination_airport}, from {flight.out_date}"
+                    f" to {flight.return_date}."
+        )

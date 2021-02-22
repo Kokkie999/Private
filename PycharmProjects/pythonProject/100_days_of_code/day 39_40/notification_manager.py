@@ -7,23 +7,19 @@ with open("C:/Users/iwand/OneDrive/api_key.json") as data_file:
 
 ACCOUNT_SID = api_data['Twilio']['api_id']
 AUTH_TOKEN = api_data['Twilio']['token']
-
+VIRTUAL_NUMBER = api_data['Twilio']['phone_number']
+VERIFIED_NUMBER = api_data['Twilio']['my_phone_number']
 
 class NotificationManager:
 
-    TWILIO_SID = YOUR
-    TWILIO
-    ACCOUNT
-    SID
-    TWILIO_AUTH_TOKEN = YOUR
-    TWILIO
-    AUTH
-    TOKEN
-    TWILIO_VIRTUAL_NUMBER = YOUR
-    TWILIO
-    VIRTUAL
-    NUMBER
-    TWILIO_VERIFIED_NUMBER = YOUR
-    TWILIO
-    VERIFIED
-    NUMBER
+    def __init__(self):
+        self.client = Client(ACCOUNT_SID, AUTH_TOKEN)
+
+    def send_sms(self, message):
+        message = self.client.messages.create(
+            body=message,
+            from_=VIRTUAL_NUMBER,
+            to=VERIFIED_NUMBER,
+        )
+        # Prints if successfully sent.
+        print(message.sid)
