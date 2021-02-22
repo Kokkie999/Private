@@ -36,4 +36,3 @@ class DataManager:
                 headers=HEADERS,
                 json=new_data
             )
-            print(response.text)
